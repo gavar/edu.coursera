@@ -28,7 +28,7 @@ public class Percolation {
     public void open(int row, int col) {
         // open cell
         int cell = cellOf(row, col);
-        setFlag(cell);
+        if (!setFlag(cell)) return; // do not open twice
         open++;
 
         // connect to virtual TOP / BOTTOM
@@ -79,18 +79,22 @@ public class Percolation {
         return (word & mask) != 0;
     }
 
-    private void setFlag(int cell) {
+    private boolean setFlag(int cell) {
         final int index = cell / WORD;
+        final long word = flags[index];
         final long mask = 1L << (cell % WORD);
-        flags[index] |= mask;
+        final long next = word | mask;
+        if (next == word) return false;
+        flags[index] = next;
+        return true;
     }
 
     private int cellOf(int row, int col) {
         if (row < 1 || row > size)
-            throw new IndexOutOfBoundsException("row is out of bounds");
+            throw new IllegalArgumentException("row is out of bounds");
 
         if (col < 1 || col > size)
-            throw new IndexOutOfBoundsException("col is out of bounds");
+            throw new IllegalArgumentException("col is out of bounds");
 
         return (row - 1) * size + (col - 1);
     }

@@ -63,9 +63,11 @@ public class PercolationTest {
             while (scanner.hasNext()) {
                 int row = scanner.nextInt();
                 int col = scanner.nextInt();
+                boolean close = !percolation.isOpen(row, col);
                 percolation.open(row, col);
+                if (close) open++;
                 assertTrue(percolation.isOpen(row, col), "cell should be marked as open");
-                assertEquals(++open, percolation.numberOfOpenSites(), "open sites number does not match");
+                assertEquals(open, percolation.numberOfOpenSites(), "open sites number does not match");
             }
             return percolation;
         }
