@@ -4,13 +4,11 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
-import static java.lang.String.format;
-
 public class PercolationStats {
-    private double mean;
-    private double stddev;
-    private double confidenceLo;
-    private double confidenceHi;
+    private final double mean;
+    private final double stddev;
+    private final double confidenceLo;
+    private final double confidenceHi;
 
     /**
      * Perform trials independent experiments on an N-by-N grid.
@@ -37,8 +35,9 @@ public class PercolationStats {
 
         mean = StdStats.mean(values);
         stddev = StdStats.stddev(values);
-        confidenceLo = mean - 1.96 * stddev / Math.sqrt(trials);
-        confidenceHi = mean + 1.96 * stddev / Math.sqrt(trials);
+        double dev = 1.96 * stddev / Math.sqrt(trials);
+        confidenceLo = mean - dev;
+        confidenceHi = mean + dev;
     }
 
     /** Sample mean of percolation threshold. */
@@ -69,8 +68,8 @@ public class PercolationStats {
         int t = Integer.parseInt(args[1]);
         PercolationStats stats = new PercolationStats(n, t);
 
-        StdOut.println(format("mean                    = %s", stats.mean()));
-        StdOut.println(format("stddev                  = %s", stats.stddev()));
-        StdOut.println(format("95%% confidence interval = [%s, %s]", stats.confidenceLo(), stats.confidenceHi()));
+        StdOut.println(String.format("mean                    = %s", stats.mean()));
+        StdOut.println(String.format("stddev                  = %s", stats.stddev()));
+        StdOut.println(String.format("95%% confidence interval = [%s, %s]", stats.confidenceLo(), stats.confidenceHi()));
     }
 }

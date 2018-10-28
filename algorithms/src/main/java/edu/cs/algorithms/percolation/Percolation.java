@@ -2,24 +2,25 @@ package edu.cs.algorithms.percolation;
 
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
-import java.util.BitSet;
-
 public class Percolation {
 
-    int open;
-    final BitSet bits;
-    final int size, top, bottom;
-    final WeightedQuickUnionUF uf;
+    private static final int TOP = 0;
+    private static final int BOTTOM = 1;
+    private static final int WORD = 64;
+
+    private int open;
+    private final int size;
+    private final long[] flags;
+    private final WeightedQuickUnionUF uf;
 
     /** Create N-by-N grid, with all sites blocked. */
     public Percolation(int n) {
         if (n <= 0)
             throw new IllegalArgumentException("N should be greater than zero!");
 
+        open = 0;
         size = n;
-        top = n * n;
-        bottom = n * n + 1;
-        bits = new BitSet(n * n);
+        flags = new long[(n * n + WORD - 1) / WORD];
         uf = new WeightedQuickUnionUF(n * n + 2);
     }
 
@@ -27,11 +28,12 @@ public class Percolation {
     public void open(int row, int col) {
         // open cell
         int cell = cellOf(row, col);
-        bits.set(cell);
+        setFlag(cell);
+        open++;
 
         // connect to virtual TOP / BOTTOM
-        if (row == 1) uf.union(cell, top);
-        if (row == size) uf.union(cell, bottom);
+        if (row == 1) uf.union(cell, size * size + TOP);
+        if (row == size) uf.union(cell, size * size + BOTTOM);
 
         // connect to adjacent
         connect(cell, row - 1, col);
@@ -43,14 +45,13 @@ public class Percolation {
     /** Check if site is bits. */
     public boolean isOpen(int row, int col) {
         int cell = cellOf(row, col);
-        return bits.get(cell);
+        return getFlag(cell);
     }
 
     /** Check if site is full. */
     public boolean isFull(int row, int col) {
         int cell = cellOf(row, col);
-        return uf.connected(cell, top) &&
-                uf.connected(cell, bottom);
+        return uf.connected(cell, size * size + TOP);
     }
 
     /** Number of bits sites. */
@@ -60,15 +61,28 @@ public class Percolation {
 
     /** Check whether system percolates. */
     public boolean percolates() {
-        return uf.connected(top, bottom);
+        return uf.connected(size * size + TOP, size * size + BOTTOM);
     }
 
     private void connect(int cell, int row, int col) {
         if (row < 1 || row > size) return;
         if (col < 1 || col > size) return;
         int adjacent = cellOf(row, col);
-        if (bits.get(adjacent))
+        if (getFlag(adjacent))
             uf.union(cell, adjacent);
+    }
+
+    private boolean getFlag(int cell) {
+        final int index = cell / WORD;
+        final long word = flags[index];
+        final long mask = 1L << (cell % WORD);
+        return (word & mask) != 0;
+    }
+
+    private void setFlag(int cell) {
+        final int index = cell / WORD;
+        final long mask = 1L << (cell % WORD);
+        flags[index] |= mask;
     }
 
     private int cellOf(int row, int col) {

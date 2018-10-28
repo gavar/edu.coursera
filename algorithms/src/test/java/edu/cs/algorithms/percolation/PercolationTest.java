@@ -7,8 +7,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PercolationTest {
 
@@ -58,12 +57,15 @@ public class PercolationTest {
         ClassLoader classLoader = getClass().getClassLoader();
         URL url = classLoader.getResource(fileName);
         try (Scanner scanner = new Scanner(url.openStream())) {
+            int open = 0;
             int size = scanner.nextInt();
             Percolation percolation = new Percolation(size);
             while (scanner.hasNext()) {
                 int row = scanner.nextInt();
                 int col = scanner.nextInt();
                 percolation.open(row, col);
+                assertTrue(percolation.isOpen(row, col), "cell should be marked as open");
+                assertEquals(++open, percolation.numberOfOpenSites(), "open sites number does not match");
             }
             return percolation;
         }
