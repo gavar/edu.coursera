@@ -35,7 +35,8 @@ public class PercolationTest {
     })
     public void shouldPercolate(String fileName) throws IOException {
         Percolation percolation = fromFile(fileName);
-        assertTrue(percolation.percolates());
+        boolean percolates = percolation.percolates();
+        assertTrue(percolates);
     }
 
     @ParameterizedTest
@@ -49,7 +50,8 @@ public class PercolationTest {
     })
     public void shouldNotPercolate(String fileName) throws IOException {
         Percolation percolation = fromFile(fileName);
-        assertFalse(percolation.percolates());
+        boolean percolates = percolation.percolates();
+        assertFalse(percolates);
     }
 
     public Percolation fromFile(String fileName) throws IOException {
