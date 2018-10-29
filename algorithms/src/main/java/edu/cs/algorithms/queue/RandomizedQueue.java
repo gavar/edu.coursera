@@ -17,21 +17,21 @@ import java.util.NoSuchElementException;
  * hasNext() in constant worst-case time; and construction in linear time; you may (and will need to) use a linear
  * amount of extra memory per iterator.
  */
-public class RandomizedQueue<T> implements Iterable<T> {
+public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private int size;
-    private T[] items;
+    private Item[] items;
 
     /** Construct an empty randomized queue. */
     @SuppressWarnings("unchecked")
     public RandomizedQueue() {
-        items = (T[]) new Object[1];
+        items = (Item[]) new Object[1];
     }
 
     @SuppressWarnings("unchecked")
-    private RandomizedQueue(T[] items, int size) {
+    private RandomizedQueue(Item[] items, int size) {
         this.size = size;
-        this.items = (T[]) new Object[size];
+        this.items = (Item[]) new Object[size];
         System.arraycopy(items, 0, this.items, 0, size);
     }
 
@@ -46,7 +46,7 @@ public class RandomizedQueue<T> implements Iterable<T> {
     }
 
     /** Add the item. */
-    public void enqueue(T item) throws IllegalArgumentException {
+    public void enqueue(Item item) throws IllegalArgumentException {
         if (item == null)
             throw new IllegalArgumentException();
 
@@ -55,12 +55,12 @@ public class RandomizedQueue<T> implements Iterable<T> {
     }
 
     /** Remove and return a random item. */
-    public T dequeue() throws NoSuchElementException {
+    public Item dequeue() throws NoSuchElementException {
         if (size < 1)
             throw new NoSuchElementException();
 
         int index = StdRandom.uniform(0, size);
-        T value = items[index];
+        Item value = items[index];
         items[index] = items[--size]; // take last item
         items[size] = null; // remove reference to last item
         shrink(); // shrink if required
@@ -69,7 +69,7 @@ public class RandomizedQueue<T> implements Iterable<T> {
     }
 
     /** Return a random item (but do not remove it). */
-    public T sample() throws NoSuchElementException {
+    public Item sample() throws NoSuchElementException {
         if (size < 1)
             throw new NoSuchElementException();
 
@@ -80,7 +80,7 @@ public class RandomizedQueue<T> implements Iterable<T> {
     @SuppressWarnings("unchecked")
     private void grow(int capacity) {
         if (items.length < capacity) {
-            T[] buffer = (T[]) new Object[items.length * 2];
+            Item[] buffer = (Item[]) new Object[items.length * 2];
             if (size >= 0) System.arraycopy(items, 0, buffer, 0, size);
             this.items = buffer;
         }
@@ -89,14 +89,14 @@ public class RandomizedQueue<T> implements Iterable<T> {
     @SuppressWarnings("unchecked")
     private void shrink() {
         if (size < items.length / 4) {
-            T[] buffer = (T[]) new Object[items.length / 4];
+            Item[] buffer = (Item[]) new Object[items.length / 4];
             if (size >= 0) System.arraycopy(items, 0, buffer, 0, size);
             this.items = buffer;
         }
     }
 
     /** Independent iterator over items in random order */
-    public Iterator<T> iterator() {
+    public Iterator<Item> iterator() {
         return new RandomizedQueueIterator<>(items, size);
     }
 

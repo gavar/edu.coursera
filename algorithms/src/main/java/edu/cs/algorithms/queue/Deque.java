@@ -13,10 +13,10 @@ import java.util.NoSuchElementException;
  * of items currently in the deque. Additionally, your iterator implementation must support each operation
  * (including construction) in constant worst-case time.
  */
-public class Deque<T> implements Iterable<T> {
+public class Deque<Item> implements Iterable<Item> {
 
     private int size;
-    private Node<T> node;
+    private Node<Item> node;
 
     /** Construct an empty deque. */
     public Deque() {
@@ -34,8 +34,8 @@ public class Deque<T> implements Iterable<T> {
     }
 
     /** Add the item to the front. */
-    public void addFirst(T item) throws IllegalArgumentException {
-        Node<T> first = new Node<>(item);
+    public void addFirst(Item item) throws IllegalArgumentException {
+        Node<Item> first = new Node<>(item);
         if (node == null) {
             node = first;
             node.prev = first;
@@ -49,8 +49,8 @@ public class Deque<T> implements Iterable<T> {
     }
 
     /** Add the item to the end. */
-    public void addLast(T item) throws IllegalArgumentException {
-        Node<T> last = new Node<>(item);
+    public void addLast(Item item) throws IllegalArgumentException {
+        Node<Item> last = new Node<>(item);
         if (node == null) {
             node = last;
             node.prev = last;
@@ -63,18 +63,18 @@ public class Deque<T> implements Iterable<T> {
     }
 
     /** Remove and return the item from the front. */
-    public T removeFirst() throws NoSuchElementException {
+    public Item removeFirst() throws NoSuchElementException {
         this.validateNotEmpty();
-        Node<T> first = node;
+        Node<Item> first = node;
         node = node.next;
         size--;
         return first.value;
     }
 
     /** Remove and return the item from the end. */
-    public T removeLast() {
+    public Item removeLast() {
         this.validateNotEmpty();
-        Node<T> last = node.prev;
+        Node<Item> last = node.prev;
         node.prev = last.prev;
         size--;
         return last.value;
@@ -82,7 +82,7 @@ public class Deque<T> implements Iterable<T> {
 
     /** Iterator over items in order from front to end. */
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<Item> iterator() {
         return new DequeIterator<>(this.node);
     }
 
