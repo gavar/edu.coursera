@@ -34,7 +34,7 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     /** Add the item to the front. */
-    public void addFirst(Item item) throws IllegalArgumentException {
+    public void addFirst(Item item) {
         Node<Item> first = new Node<>(item);
         if (node == null) {
             node = first;
@@ -49,7 +49,7 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     /** Add the item to the end. */
-    public void addLast(Item item) throws IllegalArgumentException {
+    public void addLast(Item item) {
         Node<Item> last = new Node<>(item);
         if (node == null) {
             node = last;
@@ -63,7 +63,7 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     /** Remove and return the item from the front. */
-    public Item removeFirst() throws NoSuchElementException {
+    public Item removeFirst() {
         this.validateNotEmpty();
         Node<Item> first = node;
         node = node.next;
@@ -86,7 +86,7 @@ public class Deque<Item> implements Iterable<Item> {
         return new DequeIterator<>(this.node);
     }
 
-    private void validateNotEmpty() throws NoSuchElementException {
+    private void validateNotEmpty() {
         if (size < 1)
             throw new NoSuchElementException("Deque is empty");
     }
@@ -95,7 +95,7 @@ public class Deque<Item> implements Iterable<Item> {
         final T value;
         Node<T> prev, next;
 
-        Node(T value) throws IllegalArgumentException {
+        Node(T value) {
             if (value == null)
                 throw new IllegalArgumentException("value cannot be null");
 
@@ -117,7 +117,7 @@ public class Deque<Item> implements Iterable<Item> {
         }
 
         @Override
-        public T next() throws NoSuchElementException {
+        public T next() {
             if (node == null)
                 throw new NoSuchElementException();
 
@@ -127,7 +127,7 @@ public class Deque<Item> implements Iterable<Item> {
         }
 
         @Override
-        public void remove() throws UnsupportedOperationException {
+        public void remove() {
             throw new UnsupportedOperationException("remove");
         }
     }

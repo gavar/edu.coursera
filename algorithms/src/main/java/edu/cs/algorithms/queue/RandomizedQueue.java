@@ -46,7 +46,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     /** Add the item. */
-    public void enqueue(Item item) throws IllegalArgumentException {
+    public void enqueue(Item item) {
         if (item == null)
             throw new IllegalArgumentException();
 
@@ -55,7 +55,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     /** Remove and return a random item. */
-    public Item dequeue() throws NoSuchElementException {
+    public Item dequeue() {
         if (size < 1)
             throw new NoSuchElementException();
 
@@ -69,7 +69,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     /** Return a random item (but do not remove it). */
-    public Item sample() throws NoSuchElementException {
+    public Item sample() {
         if (size < 1)
             throw new NoSuchElementException();
 
@@ -114,12 +114,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
 
         @Override
-        public T next() throws NoSuchElementException {
+        public T next() {
             return rq.dequeue();
         }
 
         @Override
-        public void remove() throws UnsupportedOperationException {
+        public void remove() {
             throw new UnsupportedOperationException("remove");
         }
     }
