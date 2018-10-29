@@ -23,14 +23,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private Item[] items;
 
     /** Construct an empty randomized queue. */
-    @SuppressWarnings("unchecked")
     public RandomizedQueue() {
+        // noinspection unchecked
         items = (Item[]) new Object[1];
     }
 
-    @SuppressWarnings("unchecked")
     private RandomizedQueue(Item[] items, int size) {
         this.size = size;
+        // noinspection unchecked
         this.items = (Item[]) new Object[size];
         System.arraycopy(items, 0, this.items, 0, size);
     }
@@ -77,18 +77,18 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return items[index];
     }
 
-    @SuppressWarnings("unchecked")
     private void grow(int capacity) {
         if (items.length < capacity) {
+            // noinspection unchecked
             Item[] buffer = (Item[]) new Object[items.length * 2];
             if (size >= 0) System.arraycopy(items, 0, buffer, 0, size);
             this.items = buffer;
         }
     }
 
-    @SuppressWarnings("unchecked")
     private void shrink() {
         if (size < items.length / 4) {
+            // noinspection unchecked
             Item[] buffer = (Item[]) new Object[items.length / 4];
             if (size >= 0) System.arraycopy(items, 0, buffer, 0, size);
             this.items = buffer;
