@@ -3,7 +3,8 @@ package edu.cs.algorithms.queue;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,9 +14,9 @@ class RandomizedQueueTest {
 
     @ParameterizedTest
     @MethodSource("data")
-    void iterate(List<String> items) {
+    void iterate(ArrayList<String> items) {
         // initialize
-        RandomizedQueue<String> queue = new RandomizedQueue<String>();
+        RandomizedQueue<String> queue = new RandomizedQueue<>();
         for (String item : items) queue.enqueue(item);
 
         // process
@@ -27,9 +28,9 @@ class RandomizedQueueTest {
 
     @ParameterizedTest
     @MethodSource("data")
-    void dequeueUntilEmpty(List<String> items) {
+    void dequeueUntilEmpty(ArrayList<String> items) {
         // initialize
-        RandomizedQueue<String> queue = new RandomizedQueue<String>();
+        RandomizedQueue<String> queue = new RandomizedQueue<>();
         for (String item : items) queue.enqueue(item);
 
         // process
@@ -44,8 +45,17 @@ class RandomizedQueueTest {
 
     private static List[] data() {
         return new List[]{
-                Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I"),
-                Arrays.asList("AA", "BB", "BB", "BB", "BB", "BB", "CC", "CC"),
+                asList(),
+                asList("A"),
+                asList("A", "B"),
+                asList("A", "B", "C", "D", "E", "F", "G", "H", "I"),
+                asList("AA", "BB", "BB", "BB", "BB", "BB", "CC", "CC"),
         };
+    }
+
+    private static <E> ArrayList<E> asList(E... items) {
+        ArrayList<E> list = new ArrayList<>(items.length);
+        Collections.addAll(list, items);
+        return list;
     }
 }

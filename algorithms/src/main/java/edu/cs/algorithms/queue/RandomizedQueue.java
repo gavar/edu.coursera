@@ -1,5 +1,7 @@
 package edu.cs.algorithms.queue;
 
+import edu.princeton.cs.algs4.StdRandom;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -17,54 +19,108 @@ import java.util.NoSuchElementException;
  */
 public class RandomizedQueue<T> implements Iterable<T> {
 
+    private int size;
+    private T[] items;
+
     /** Construct an empty randomized queue. */
+    @SuppressWarnings("unchecked")
     public RandomizedQueue() {
+        items = (T[]) new Object[1];
+    }
+
+    @SuppressWarnings("unchecked")
+    private RandomizedQueue(T[] items, int size) {
+        this.size = size;
+        this.items = (T[]) new Object[size];
+        System.arraycopy(items, 0, this.items, 0, size);
     }
 
     /** Is the randomized queue empty?. */
     public boolean isEmpty() {
-        return true;
+        return size < 1;
     }
 
     /** Number of items on the randomized queue. */
     public int size() {
-        return 0;
+        return size;
     }
 
     /** Add the item. */
     public void enqueue(T item) throws IllegalArgumentException {
+        if (item == null)
+            throw new IllegalArgumentException();
+
+        grow(size + 1);
+        items[size++] = item;
     }
 
     /** Remove and return a random item. */
     public T dequeue() throws NoSuchElementException {
-        return null;
+        if (size < 1)
+            throw new NoSuchElementException();
+
+        int index = StdRandom.uniform(0, size);
+        T value = items[index];
+        items[index] = items[--size]; // take last item
+        items[size] = null; // remove reference to last item
+        shrink(); // shrink if required
+
+        return value;
     }
 
     /** Return a random item (but do not remove it). */
     public T sample() throws NoSuchElementException {
-        return null;
+        if (size < 1)
+            throw new NoSuchElementException();
+
+        int index = StdRandom.uniform(0, size);
+        return items[index];
+    }
+
+    @SuppressWarnings("unchecked")
+    private void grow(int capacity) {
+        if (items.length < capacity) {
+            T[] buffer = (T[]) new Object[items.length * 2];
+            if (size >= 0) System.arraycopy(items, 0, buffer, 0, size);
+            this.items = buffer;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void shrink() {
+        if (size < items.length / 4) {
+            T[] buffer = (T[]) new Object[items.length / 4];
+            if (size >= 0) System.arraycopy(items, 0, buffer, 0, size);
+            this.items = buffer;
+        }
     }
 
     /** Independent iterator over items in random order */
     public Iterator<T> iterator() {
-        return null;
+        return new RandomizedQueueIterator<>(items, size);
     }
 
     private static class RandomizedQueueIterator<T> implements Iterator<T> {
 
+        private final RandomizedQueue<T> rq;
+
+        RandomizedQueueIterator(T[] items, int size) {
+            rq = new RandomizedQueue<>(items, size);
+        }
+
         @Override
         public boolean hasNext() {
-            return false;
+            return !rq.isEmpty();
         }
 
         @Override
         public T next() throws NoSuchElementException {
-            return null;
+            return rq.dequeue();
         }
 
         @Override
         public void remove() throws UnsupportedOperationException {
-
+            throw new UnsupportedOperationException("remove");
         }
     }
 }
