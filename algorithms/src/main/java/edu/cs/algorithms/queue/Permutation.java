@@ -1,5 +1,8 @@
 package edu.cs.algorithms.queue;
 
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
+
 /**
  * Program that takes an integer k as a command-line argument;
  * reads in a sequence of strings from standard input using StdIn.readString();
@@ -16,6 +19,15 @@ package edu.cs.algorithms.queue;
 public class Permutation {
 
     public static void main(String[] args) {
+        if (args.length != 1)
+            throw new IllegalArgumentException("invalid number of arguments");
 
+        int k = Integer.parseInt(args[0]);
+        RandomizedQueue<String> rq = new RandomizedQueue<>();
+        while (StdIn.hasNextLine())
+            rq.enqueue(StdIn.readLine());
+
+        while (--k >= 0)
+            StdOut.println(rq.dequeue());
     }
 }
