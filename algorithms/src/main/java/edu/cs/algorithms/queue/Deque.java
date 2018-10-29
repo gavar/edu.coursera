@@ -15,62 +15,120 @@ import java.util.NoSuchElementException;
  */
 public class Deque<T> implements Iterable<T> {
 
+    private int size;
+    private Node<T> node;
+
     /** Construct an empty deque. */
     public Deque() {
-
+        size = 0;
     }
 
     /** Is the deque empty?. */
     public boolean isEmpty() {
-        return true;
+        return size < 1;
     }
 
     /** Number of items on the deque. */
     public int size() {
-        return 0;
+        return size;
     }
 
     /** Add the item to the front. */
     public void addFirst(T item) throws IllegalArgumentException {
-
+        Node<T> first = new Node<>(item);
+        if (node == null) {
+            node = first;
+            node.prev = first;
+        } else {
+            first.prev = node.prev;
+            first.next = node;
+            node.prev = first;
+            node = first;
+        }
+        size++;
     }
 
     /** Add the item to the end. */
     public void addLast(T item) throws IllegalArgumentException {
-
+        Node<T> last = new Node<>(item);
+        if (node == null) {
+            node = last;
+            node.prev = last;
+        } else {
+            last.prev = node.prev;
+            node.prev.next = last;
+            node.prev = last;
+        }
+        size++;
     }
 
     /** Remove and return the item from the front. */
     public T removeFirst() throws NoSuchElementException {
-        return null;
+        this.validateNotEmpty();
+        Node<T> first = node;
+        node = node.next;
+        size--;
+        return first.value;
     }
 
     /** Remove and return the item from the end. */
     public T removeLast() {
-        return null;
+        this.validateNotEmpty();
+        Node<T> last = node.prev;
+        node.prev = last.prev;
+        size--;
+        return last.value;
     }
 
     /** Iterator over items in order from front to end. */
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new DequeIterator<>(this.node);
+    }
+
+    private void validateNotEmpty() throws NoSuchElementException {
+        if (size < 1)
+            throw new NoSuchElementException("Deque is empty");
+    }
+
+    private static class Node<T> {
+        final T value;
+        Node<T> prev, next;
+
+        Node(T value) throws IllegalArgumentException {
+            if (value == null)
+                throw new IllegalArgumentException("value cannot be null");
+
+            this.value = value;
+        }
     }
 
     private static class DequeIterator<T> implements Iterator<T> {
 
+        private Node<T> node;
+
+        public DequeIterator(Node<T> node) {
+            this.node = node;
+        }
+
         @Override
         public boolean hasNext() {
-            return false;
+            return node != null;
         }
 
         @Override
         public T next() throws NoSuchElementException {
-            return null;
+            if (node == null)
+                throw new NoSuchElementException();
+
+            T value = node.value;
+            node = node.next;
+            return value;
         }
 
         @Override
         public void remove() throws UnsupportedOperationException {
-
+            throw new UnsupportedOperationException("remove");
         }
     }
 }
