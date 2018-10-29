@@ -24,8 +24,8 @@ public class Permutation {
 
         int k = Integer.parseInt(args[0]);
         RandomizedQueue<String> rq = new RandomizedQueue<>();
-        while (StdIn.hasNextLine())
-            rq.enqueue(StdIn.readLine());
+        while (!StdIn.isEmpty())
+            rq.enqueue(StdIn.readString());
 
         while (--k >= 0)
             StdOut.println(rq.dequeue());
