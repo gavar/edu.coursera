@@ -19,6 +19,7 @@
     <modules>
         <module>algorithms</module>
         <module>codingbat</module>
+        <module>hackerrank</module>
     </modules>
 
     <dependencies>
