@@ -48,9 +48,9 @@ class CountingInversionsTest {
 
     private static Object[][] data() {
         return new Object[][]{
-                new Object[]{"algorithms.sorting/counting-inversions-0.txt", new long[]{0, 4}},
-                new Object[]{"algorithms.sorting/counting-inversions-14.txt", new long[]{1, 6}},
-                new Object[]{"algorithms.sorting/counting-inversions-15.txt", new long[]{0, 3}},
+                new Object[]{"algorithms/sorting/counting-inversions-0.txt", new long[]{0, 4}},
+                new Object[]{"algorithms/sorting/counting-inversions-14.txt", new long[]{1, 6}},
+                new Object[]{"algorithms/sorting/counting-inversions-15.txt", new long[]{0, 3}},
         };
     }
 }

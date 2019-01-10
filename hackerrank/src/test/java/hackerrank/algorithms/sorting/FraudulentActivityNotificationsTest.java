@@ -45,10 +45,10 @@ class FraudulentActivityNotificationsTest {
 
     private static Object[][] data() {
         return new Object[][]{
-                new Object[]{"algorithms.sorting/fraudulent-activity-notifications-0.txt", 2},
-                new Object[]{"algorithms.sorting/fraudulent-activity-notifications-1.txt", 633},
-                new Object[]{"algorithms.sorting/fraudulent-activity-notifications-6.txt", 0},
-                new Object[]{"algorithms.sorting/fraudulent-activity-notifications-7.txt", 1},
+                new Object[]{"algorithms/sorting/fraudulent-activity-notifications-0.txt", 2},
+                new Object[]{"algorithms/sorting/fraudulent-activity-notifications-1.txt", 633},
+                new Object[]{"algorithms/sorting/fraudulent-activity-notifications-6.txt", 0},
+                new Object[]{"algorithms/sorting/fraudulent-activity-notifications-7.txt", 1},
         };
     }
 }

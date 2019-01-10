@@ -52,12 +52,12 @@ class MatrixTest {
 
     private static Object[][] data() {
         return new Object[][]{
-                new Object[]{"algorithms.graphs/matrix-0.txt", 10},
-                new Object[]{"algorithms.graphs/matrix-1.txt", 55},
-                new Object[]{"algorithms.graphs/matrix-8.txt", 3105329},
-                new Object[]{"algorithms.graphs/matrix-9.txt", 1738531},
-                new Object[]{"algorithms.graphs/matrix-10.txt", 5},
-                new Object[]{"algorithms.graphs/matrix-11.txt", 8},
+                new Object[]{"algorithms/graphs/matrix-0.txt", 10},
+                new Object[]{"algorithms/graphs/matrix-1.txt", 55},
+                new Object[]{"algorithms/graphs/matrix-8.txt", 3105329},
+                new Object[]{"algorithms/graphs/matrix-9.txt", 1738531},
+                new Object[]{"algorithms/graphs/matrix-10.txt", 5},
+                new Object[]{"algorithms/graphs/matrix-11.txt", 8},
         };
     }
 }
