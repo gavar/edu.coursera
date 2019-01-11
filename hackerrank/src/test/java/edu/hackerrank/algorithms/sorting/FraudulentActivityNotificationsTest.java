@@ -1,4 +1,4 @@
-package hackerrank.algorithms.sorting;
+package edu.hackerrank.algorithms.sorting;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;

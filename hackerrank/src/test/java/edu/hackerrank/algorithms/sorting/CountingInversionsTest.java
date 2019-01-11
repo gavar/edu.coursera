@@ -1,4 +1,4 @@
-package hackerrank.algorithms.sorting;
+package edu.hackerrank.algorithms.sorting;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -15,7 +15,7 @@ class CountingInversionsTest {
     @MethodSource("data")
     void countingInversions(String fileName, long[] expects) throws IOException {
         Problem[] problems = parse(fileName);
-        for (int i = 0; i < problems.length; i++){
+        for (int i = 0; i < problems.length; i++) {
             Problem problem = problems[i];
             long expect = expects[i];
             long actual = CountingInversions.countInversions(problem.array);

@@ -5,23 +5,23 @@ import java.util.*;
 /**
  * Phone interview question.
  * Date: 31.10.2018
- *
+ * <p>
  * Task:
  * 12 EUR  in USD     => 14.16 USD
  * 2 Yards in Meters  => 1.828 Meters
- *
+ * <p>
  * Input 1: ratio records
  * Source | Ratio  | Destination
  * GBP    | 0.69   | USD
  * Yard   | 1.09   | Meter
  * EUR    | 0.0077 | YEN
  * YEN    | 167.75 | GBP
- *
+ * <p>
  * Input 2: batch of queries
  * Source | Destination
  * EUR    | USD
  * Meter  | Yard
- *
+ * <p>
  * Output:
  * Source | Ratio | Destination
  * EUR    | 0.89  | USD

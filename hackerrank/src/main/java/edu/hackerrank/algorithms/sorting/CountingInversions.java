@@ -1,4 +1,4 @@
-package hackerrank.algorithms.sorting;
+package edu.hackerrank.algorithms.sorting;
 
 /**
  * Merge Sort: Counting Inversions.

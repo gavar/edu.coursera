@@ -1,4 +1,4 @@
-package hackerrank.algorithms.search;
+package edu.hackerrank.algorithms.search;
 
 import java.util.Arrays;
 
