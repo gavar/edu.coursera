@@ -1,4 +1,4 @@
-package google;
+package edu.google.interview;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -62,7 +62,7 @@ public class UnitConversionTest {
 
     private static String[] data() {
         return new String[]{
-                "google/unit-conversion-1.txt",
+                "edu/google/interview/unit-conversion-1.txt",
         };
     }
 }
