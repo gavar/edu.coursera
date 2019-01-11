@@ -20,6 +20,7 @@
         <module>algorithms</module>
         <module>codingbat</module>
         <module>hackerrank</module>
+        <module>interview</module>
     </modules>
 
     <dependencies>

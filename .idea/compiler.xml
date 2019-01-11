@@ -9,6 +9,7 @@
         <module name="algorithms" />
         <module name="codingbat" />
         <module name="hackerrank" />
+        <module name="interview" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -16,6 +17,7 @@
       <module name="codingbat" target="1.8" />
       <module name="coursera" target="1.8" />
       <module name="hackerrank" target="1.8" />
+      <module name="interview" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
