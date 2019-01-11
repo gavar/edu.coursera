@@ -15,7 +15,7 @@
     <bytecodeTargetLevel>
       <module name="algorithms" target="1.8" />
       <module name="codingbat" target="1.8" />
-      <module name="coursera" target="1.8" />
+      <module name="edu.gavar.cs" target="1.8" />
       <module name="hackerrank" target="1.8" />
       <module name="interview" target="1.8" />
     </bytecodeTargetLevel>
