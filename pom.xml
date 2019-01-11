@@ -5,8 +5,8 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>edu.gavar.coursera</groupId>
-    <artifactId>coursera</artifactId>
+    <groupId>edu.gavar.cs</groupId>
+    <artifactId>root</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 

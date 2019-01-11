@@ -6,8 +6,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>edu.gavar.coursera</groupId>
-        <artifactId>coursera</artifactId>
+        <groupId>edu.gavar.cs</groupId>
+        <artifactId>root</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
