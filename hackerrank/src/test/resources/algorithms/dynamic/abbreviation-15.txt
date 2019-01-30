@@ -1,0 +1,10 @@
+3
+AbCdE
+AFE
+beFgH
+EFG
+beFgH
+EFH
+NO
+NO
+YES
