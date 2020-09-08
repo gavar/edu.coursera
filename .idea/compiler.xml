@@ -9,12 +9,14 @@
         <module name="codingbat" />
         <module name="algorithms" />
         <module name="interview" />
+        <module name="codility" />
         <module name="cs-algorithms" />
         <module name="hackerrank" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="algorithms" target="1.8" />
+      <module name="codility" target="1.8" />
       <module name="codingbat" target="1.8" />
       <module name="cs-algorithms" target="1.8" />
       <module name="edu.gavar.cs" target="1.8" />
