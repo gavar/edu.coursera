@@ -36,12 +36,6 @@
             <artifactId>algs4</artifactId>
             <version>1.0.3</version>
         </dependency>
-        <dependency>
-            <groupId>edu.gavar.coursera</groupId>
-            <artifactId>cs-algorithms</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
 </project>
