@@ -1,94 +1,107 @@
 package edu.toptal.D20200910;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
-
 public class Task2 {
     public int solution(String S, int K) {
         int N = S.length();
-        List<Character> chars = new ArrayList<>();
-        List<Integer> counts = new ArrayList<>();
+        Node left = new Node('\0');
+        Node right = new Node('\0');
 
-        for (int i = 0; i < N; ) {
-            int count = 1;
-            char c = S.charAt(i++);
-            while (i < N && S.charAt(i) == c) {
-                count++;
-                i++;
-            }
+        // trim beginning
+        Node tail = right;
+        for (int i = K; i < N; i++)
+            tail = tail.offer(S.charAt(i));
+        right = right.next;
 
-            chars.add(c);
-            counts.add(count);
-        }
-
-        int p = 0;
-
-        // remove first K chars
-        Deque<Integer> queue = new ArrayDeque<Integer>();
-        for (int i = 0; i < K; ) {
-            int count = counts.get(p);
-            if (count > 0) {
-                i++;
-                count--;
-                queue.add(p);
-                counts.set(p, count);
-            } else {
-                p++;
-            }
-        }
-
-        int min = compress(chars, counts);
-        for (int i = K; i < N; ) {
-            // restore
-            int m = queue.poll();
-            counts.set(m, counts.get(m) + 1);
-
-            // remove next
-            int count = counts.get(p);
-            if (count > 0) {
-                i++;
-                count--;
-                queue.add(p);
-                counts.set(p, count);
-                int size = compress(chars, counts);
-                min = Math.min(min, size);
-            } else {
-                p++;
-            }
+        int min = N;
+        for (int i = 0, j = K; j < N; i++, j++) {
+            final int size = merge(left, right);
+            min = Math.min(min, size);
+            left = left.offer(S.charAt(i));
+            right = right.poll();
         }
 
         return min;
     }
 
-    int compress(List<Character> chars, List<Integer> counts) {
+    int merge(Node left, Node right) {
+        while (left != null && left.count == 0)
+            left = left.prev;
+
+        while (right != null && right.count == 0)
+            right = right.next;
+
+        if (left == null) return sumRight(right);
+        if (right == null) return sumLeft(left);
+
+        return left.c != right.c
+                ? sumLeft(left) + sumRight(right)
+                : sumLeft(left.prev) + widthOf(left.count + right.count) + sumRight(right.next);
+    }
+
+    int sumLeft(Node node) {
         int total = 0;
-
-        int batch = 0;
-        char last = 0;
-
-        for (int i = 0; i < chars.size(); i++) {
-            char c = chars.get(i);
-            int count = counts.get(i);
-            if (count == 0) continue;
-            if (c == last) {
-                batch += count;
-            } else {
-                if (batch > 2) total += digits(batch) + 1;
-                else total += batch;
-                batch = count;
-            }
+        while (node != null) {
+            total += node.width;
+            node = node.prev;
         }
-
-        if (batch > 2) total += digits(batch) + 1;
-        else total += batch;
         return total;
     }
 
-    int digits(int num) {
-        int count = 0;
-        for (; num != 0; num /= 10, ++count) ;
+    int sumRight(Node node) {
+        int total = 0;
+        while (node != null) {
+            total += node.width;
+            node = node.next;
+        }
+        return total;
+    }
+
+    int widthOf(int count) {
+        return count > 2
+                ? digits(count) + 1
+                : count;
+    }
+
+    int digits(int number) {
+        int count = 1;
+        for (int t = 10; t < number; t *= 10)
+            count++;
         return count;
+    }
+
+    class Node {
+        final char c;
+        public Node(char c) {
+            this.c = c;
+        }
+
+        Node prev;
+        Node next;
+
+        int count;
+        int width;
+
+        Node offer(char c) {
+            if (this.c == c) {
+                width = widthOf(++this.count);
+                return this;
+            } else {
+                next = new Node(c);
+                next.count = 1;
+                next.width = 1;
+                next.prev = this;
+                return next;
+            }
+        }
+
+        Node poll() {
+            width += widthOf(--this.count);
+
+            Node node = this;
+            while (node != null && node.count < 1)
+                node = node.next;
+
+            return node;
+        }
     }
 }

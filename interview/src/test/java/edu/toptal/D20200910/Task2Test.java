@@ -20,8 +20,9 @@ public class Task2Test {
         return new Arguments[]{
                 // examples
                 of("ABBBCCDDCCC", 3, 5),
-                // of("AAAAAAAAAAABXXAAAAAAAAAA", 3, 3),
-                // of("ABCDDDEFG", 2, 3),
+                of("AAAAAAAAAAABXXAAAAAAAAAA", 3, 3),
+                of("AAAAAAAAAABXXAAAAAAAAAA", 3, 3),
+                of("ABCDDDEFG", 2, 6),
         };
     }
 }
